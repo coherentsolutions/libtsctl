@@ -43,6 +43,14 @@ $(DIR)/libtsctl.o: libtsctl.c $(DEPS)
 	@$(CC) -c $(CFLAGS) $(CFLAGS_$(patsubst %.c,%,$<)) $< \
         $(LDFLAGS) -o $@
 
+libtsctl.so: $(DIR)/libtsctl.so
+	@true
+
+$(DIR)/libtsctl.so: libtsctl.c $(DEPS)
+	@echo "Building $@"
+	$(CC) -shared -Wl,-soname,$(notdir $@) $(CFLAGS) $(CFLAGS_$(patsubst %.c,%,$<)) $< \
+        $(LDFLAGS) -o $@
+
 MapDump: $(DIR)/MapDump
 	@true
 
